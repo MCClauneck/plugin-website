@@ -81,11 +81,15 @@ pre {
 }
 
 code {
-  display: block;
+  display: inline;
   min-width: 0;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   font-family: "Space Grotesk", monospace;
+}
+
+pre code {
+  display: block;
 }
 
 /* simple syntax colors */
