@@ -100,8 +100,6 @@ dependencies {
       <p><strong>CurrencyType</strong> enum constants:</p>
       <pre><code>COIN, COPPER, SILVER, GOLD</code></pre>
 
-      <p><strong>CoinLogOperation</strong> enum constants:</p>
-      <pre><code>GET, SET, ADD, MINUS, SEND</code></pre>
 
       <p><strong>IMCEconomyDB</strong> key methods:</p>
       <pre><code>long getCoin(String accountUuid, String accountType, CurrencyType coinType)
@@ -110,7 +108,6 @@ boolean addCoin(String accountUuid, String accountType, CurrencyType coinType, l
 boolean minusCoin(String accountUuid, String accountType, CurrencyType coinType, long amount)
 boolean sendCoin(String senderUuid, String senderType, String receiverUuid, String receiverType, CurrencyType coinType, long amount)
 boolean ensureAccountExist(String accountUuid, String accountType)
-void logCoinOperation(CoinLogOperation operation, String accountUuid, String accountType, String targetUuid, String targetType, CurrencyType coinType, long amount, boolean success, String message)
 void close()</code></pre>
     </section>
   </main>
