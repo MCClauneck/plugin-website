@@ -19,7 +19,7 @@
         is designed to be used as the constant and contract source across the
         ecosystem.
       </p>
-      <p>Version: <code>2026.0.4-2</code></p>
+      <p>Version: <code>2026.0.4-3</code></p>
     </section>
 
     <section class="card">
@@ -54,7 +54,7 @@
   &lt;dependency&gt;
     &lt;groupId&gt;io.github.mcclauneck&lt;/groupId&gt;
     &lt;artifactId&gt;mceconomy-api&lt;/artifactId&gt;
-    &lt;version&gt;2026.0.4-2&lt;/version&gt;
+    &lt;version&gt;2026.0.4-3&lt;/version&gt;
   &lt;/dependency&gt;
 &lt;/dependencies&gt;</code></pre>
     </section>
@@ -73,7 +73,7 @@
 }
 
 dependencies {
-  implementation 'io.github.mcclauneck:mceconomy-api:2026.0.4-2'
+  implementation 'io.github.mcclauneck:mceconomy-api:2026.0.4-3'
 }</code></pre>
     </section>
 
@@ -91,7 +91,7 @@ dependencies {
 }
 
 dependencies {
-  implementation("io.github.mcclauneck:mceconomy-api:2026.0.4-2")
+  implementation("io.github.mcclauneck:mceconomy-api:2026.0.4-3")
 }</code></pre>
     </section>
 
@@ -100,6 +100,9 @@ dependencies {
       <p><strong>CurrencyType</strong> enum constants:</p>
       <pre><code>COIN, COPPER, SILVER, GOLD</code></pre>
 
+      <p><strong>CoinLogOperation</strong> enum constants:</p>
+      <pre><code>GET, SET, ADD, MINUS, SEND</code></pre>
+
       <p><strong>IMCEconomyDB</strong> key methods:</p>
       <pre><code>long getCoin(String accountUuid, String accountType, CurrencyType coinType)
 boolean setCoin(String accountUuid, String accountType, CurrencyType coinType, long amount)
@@ -107,6 +110,7 @@ boolean addCoin(String accountUuid, String accountType, CurrencyType coinType, l
 boolean minusCoin(String accountUuid, String accountType, CurrencyType coinType, long amount)
 boolean sendCoin(String senderUuid, String senderType, String receiverUuid, String receiverType, CurrencyType coinType, long amount)
 boolean ensureAccountExist(String accountUuid, String accountType)
+void logCoinOperation(CoinLogOperation operation, String accountUuid, String accountType, String targetUuid, String targetType, CurrencyType coinType, long amount, boolean success, String message)
 void close()</code></pre>
     </section>
   </main>
