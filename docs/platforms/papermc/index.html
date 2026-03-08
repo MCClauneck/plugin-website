@@ -65,6 +65,42 @@ main: com.example.mceconomy.extension.ExampleExtension
 version: 1.0.0
 extension:
   depend: []</code></pre>
+      <p>Additional Git metadata example:</p>
+      <pre><code>git:
+  provider: github or gitlab
+  owner: your-org
+  repository: your-repo</code></pre>
+      <ul>
+        <li>
+          Example extensions: <a href="https://github.com/MCClauneck-Extension" target="_blank" rel="noreferrer noopener">MCClauneck-Extension</a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h3>Example Extension Class (IMCExtension)</h3>
+      <p>
+        Implement <code>IMCExtension</code> to register your extension lifecycle hooks.
+      </p>
+      <pre><code>package com.example.mceconomy.extension;
+
+import io.github.mcclauneck.mcextension.api.IMCExtension;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.concurrent.Executor;
+
+public final class ExampleExtension implements IMCExtension {
+
+    @Override
+    public void onLoad(JavaPlugin plugin, Executor executor) {
+        plugin.getLogger().info("[ExampleExtension] Loaded");
+    }
+
+    @Override
+    public void onDisable(JavaPlugin plugin, Executor executor) {
+        plugin.getLogger().info("[ExampleExtension] Disabled");
+    }
+}</code></pre>
     </section>
 
     <section class="card">
