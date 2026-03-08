@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MCEconomy API Docs</title>
+  <link rel="stylesheet" href="../css/shared/main.css" />
+  <link rel="stylesheet" href="../css/partial/header.css" />
+  <link rel="stylesheet" href="../css/partial/footer.css" />
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <section class="card">
+      <h2>MCEconomy API</h2>
+      <p>
+        Public contracts package for MCEconomy. This module is interface-only and
+        is designed to be used as the constant and contract source across the
+        ecosystem.
+      </p>
+      <p>Version: <code>2026.0.4-2</code></p>
+    </section>
+
+    <section class="card">
+      <h3>Implementation Guidance</h3>
+      <ul>
+        <li>If you are building the main stack, implement the interfaces and your own common-layer logic.</li>
+        <li>If you are building an extension, use this artifact as <code>compileOnly</code>.</li>
+        <li>Use enums from this package as the primary constant source (for example <code>CurrencyType</code>).</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h3>Maven (Repository + Authentication + Dependency)</h3>
+      <p><strong>settings.xml</strong> (credentials for GitHub Packages)</p>
+      <pre><code>&lt;servers&gt;
+  &lt;server&gt;
+    &lt;id&gt;github&lt;/id&gt;
+    &lt;username&gt;${env.GITHUB_ACTOR}&lt;/username&gt;
+    &lt;password&gt;${env.GITHUB_TOKEN}&lt;/password&gt;
+  &lt;/server&gt;
+&lt;/servers&gt;</code></pre>
+
+      <p><strong>pom.xml</strong> (repo + dependency)</p>
+      <pre><code>&lt;repositories&gt;
+  &lt;repository&gt;
+    &lt;id&gt;github&lt;/id&gt;
+    &lt;url&gt;https://maven.pkg.github.com/MCClauneck/plugin-api&lt;/url&gt;
+  &lt;/repository&gt;
+&lt;/repositories&gt;
+
+&lt;dependencies&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;io.github.mcclauneck&lt;/groupId&gt;
+    &lt;artifactId&gt;mceconomy-api&lt;/artifactId&gt;
+    &lt;version&gt;2026.0.4-2&lt;/version&gt;
+  &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+    </section>
+
+    <section class="card">
+      <h3>Gradle (Groovy) - Repository + Authentication + Dependency</h3>
+      <pre><code>repositories {
+  mavenCentral()
+  maven {
+    url = uri("https://maven.pkg.github.com/MCClauneck/plugin-api")
+    credentials {
+      username = System.getenv('GITHUB_ACTOR') ?: System.getenv('AGENT_NAME') ?: System.getenv('USER_GITHUB_NAME')
+      password = System.getenv('GITHUB_TOKEN') ?: System.getenv('AGENT_TOKEN') ?: System.getenv('USER_GITHUB_TOKEN')
+    }
+  }
+}
+
+dependencies {
+  implementation 'io.github.mcclauneck:mceconomy-api:2026.0.4-2'
+}</code></pre>
+    </section>
+
+    <section class="card">
+      <h3>Gradle (Kotlin) - Repository + Authentication + Dependency</h3>
+      <pre><code>repositories {
+  mavenCentral()
+  maven {
+    url = uri("https://maven.pkg.github.com/MCClauneck/plugin-api")
+    credentials {
+      username = System.getenv("GITHUB_ACTOR") ?: System.getenv("AGENT_NAME") ?: System.getenv("USER_GITHUB_NAME")
+      password = System.getenv("GITHUB_TOKEN") ?: System.getenv("AGENT_TOKEN") ?: System.getenv("USER_GITHUB_TOKEN")
+    }
+  }
+}
+
+dependencies {
+  implementation("io.github.mcclauneck:mceconomy-api:2026.0.4-2")
+}</code></pre>
+    </section>
+
+    <section class="card">
+      <h3>Core Contracts Snapshot</h3>
+      <p><strong>CurrencyType</strong> enum constants:</p>
+      <pre><code>COIN, COPPER, SILVER, GOLD</code></pre>
+
+      <p><strong>IMCEconomyDB</strong> key methods:</p>
+      <pre><code>long getCoin(String accountUuid, String accountType, CurrencyType coinType)
+boolean setCoin(String accountUuid, String accountType, CurrencyType coinType, long amount)
+boolean addCoin(String accountUuid, String accountType, CurrencyType coinType, long amount)
+boolean minusCoin(String accountUuid, String accountType, CurrencyType coinType, long amount)
+boolean sendCoin(String senderUuid, String senderType, String receiverUuid, String receiverType, CurrencyType coinType, long amount)
+boolean ensureAccountExist(String accountUuid, String accountType)
+void close()</code></pre>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script>
+    const loadPartial = async (id, path) => {
+      const host = document.getElementById(id);
+      if (!host) return;
+      const res = await fetch(path);
+      host.innerHTML = await res.text();
+    };
+
+    loadPartial("site-header", "../partial/header.html");
+    loadPartial("site-footer", "../partial/footer.html");
+  </script>
+  <script src="../js/highlight.js"></script>
+</body>
+</html>
