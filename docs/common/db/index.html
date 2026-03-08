@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DB Guide</title>
+  <link rel="stylesheet" href="../../css/shared/main.css" />
+  <link rel="stylesheet" href="../../css/partial/header.css" />
+  <link rel="stylesheet" href="../../css/partial/footer.css" />
+  <link rel="stylesheet" href="../../css/db/db.css" />
+</head>
+<body class="db-page">
+  <div id="site-header"></div>
+
+  <main>
+    <section class="card">
+      <h2>Database Guides (Unified)</h2>
+      <p>Select class type from the left column to preview adapter info and async provider examples.</p>
+      <div class="nav-row">
+        <a class="button" href="../index.html">Back to Common</a>
+      </div>
+    </section>
+
+    <section class="card db-layout">
+      <aside class="db-selector" id="db-selector"></aside>
+      <div class="db-view" id="db-view"></div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script>
+    const dbTypes = [
+      {
+        key: "api",
+        label: "API (WebSocket)",
+        className: "MCEconomyAPI",
+        adapter: "io.github.mcclauneck.mceconomy.common.database.api.MCEconomyAPI"
+      },
+      {
+        key: "mysql",
+        label: "MySQL",
+        className: "MCEconomyMySQL",
+        adapter: "io.github.mcclauneck.mceconomy.common.database.mysql.MCEconomyMySQL"
+      },
+      {
+        key: "postgresql",
+        label: "PostgreSQL",
+        className: "MCEconomyPostgreSQL",
+        adapter: "io.github.mcclauneck.mceconomy.common.database.postgresql.MCEconomyPostgreSQL"
+      },
+      {
+        key: "sqlite",
+        label: "SQLite",
+        className: "MCEconomySQLite",
+        adapter: "io.github.mcclauneck.mceconomy.common.database.sqlite.MCEconomySQLite"
+      },
+      {
+        key: "mongodb",
+        label: "MongoDB",
+        className: "MCEconomyMongoDB",
+        adapter: "io.github.mcclauneck.mceconomy.common.database.mongodb.MCEconomyMongoDB"
+      }
+    ];
+
+    const providerExamples = `
+<div class="function-grid">
+  <div class="function-item"><div class="function-head"><h4>Imports + Provider</h4><button class="copy-btn" type="button">Copy</button></div><pre><code>import io.github.mcclauneck.mceconomy.common.MCEconomyProvider;
+import io.github.mcclauneck.mceconomy.api.enums.CurrencyType;
+
+MCEconomyProvider provider = MCEconomyProvider.getInstance();
+if (provider == null) return;</code></pre></div>
+
+  <div class="function-item"><div class="function-head"><h4>getCoin</h4><button class="copy-btn" type="button">Copy</button></div><pre><code>provider.getCoin("player-uuid", "player")
+  .thenAccept(coinDefault -&gt; System.out.println("getCoin(default): success =&gt; " + coinDefault))
+  .exceptionally(ex -&gt; { System.err.println("getCoin(default): fail =&gt; " + ex.getMessage()); return null; });
+provider.getCoin("player-uuid", "player", CurrencyType.GOLD)
+  .thenAccept(coinGold -&gt; System.out.println("getCoin(gold): success =&gt; " + coinGold))
+  .exceptionally(ex -&gt; { System.err.println("getCoin(gold): fail =&gt; " + ex.getMessage()); return null; });</code></pre></div>
+
+  <div class="function-item"><div class="function-head"><h4>setCoin</h4><button class="copy-btn" type="button">Copy</button></div><pre><code>provider.setCoin("player-uuid", "player", 1000L)
+  .thenAccept(success -&gt; System.out.println(success ? "setCoin(default): success" : "setCoin(default): fail"))
+  .exceptionally(ex -&gt; { System.err.println("setCoin(default): error =&gt; " + ex.getMessage()); return null; });
+provider.setCoin("player-uuid", "player", CurrencyType.GOLD, 500L)
+  .thenAccept(success -&gt; System.out.println(success ? "setCoin(gold): success" : "setCoin(gold): fail"))
+  .exceptionally(ex -&gt; { System.err.println("setCoin(gold): error =&gt; " + ex.getMessage()); return null; });</code></pre></div>
+
+  <div class="function-item"><div class="function-head"><h4>addCoin</h4><button class="copy-btn" type="button">Copy</button></div><pre><code>provider.addCoin("player-uuid", "player", 50L)
+  .thenAccept(success -&gt; System.out.println(success ? "addCoin(default): success" : "addCoin(default): fail"))
+  .exceptionally(ex -&gt; { System.err.println("addCoin(default): error =&gt; " + ex.getMessage()); return null; });
+provider.addCoin("player-uuid", "player", CurrencyType.GOLD, 25L)
+  .thenAccept(success -&gt; System.out.println(success ? "addCoin(gold): success" : "addCoin(gold): fail"))
+  .exceptionally(ex -&gt; { System.err.println("addCoin(gold): error =&gt; " + ex.getMessage()); return null; });</code></pre></div>
+
+  <div class="function-item"><div class="function-head"><h4>minusCoin</h4><button class="copy-btn" type="button">Copy</button></div><pre><code>provider.minusCoin("player-uuid", "player", 10L)
+  .thenAccept(success -&gt; System.out.println(success ? "minusCoin(default): success" : "minusCoin(default): fail"))
+  .exceptionally(ex -&gt; { System.err.println("minusCoin(default): error =&gt; " + ex.getMessage()); return null; });
+provider.minusCoin("player-uuid", "player", CurrencyType.GOLD, 5L)
+  .thenAccept(success -&gt; System.out.println(success ? "minusCoin(gold): success" : "minusCoin(gold): fail"))
+  .exceptionally(ex -&gt; { System.err.println("minusCoin(gold): error =&gt; " + ex.getMessage()); return null; });</code></pre></div>
+
+  <div class="function-item"><div class="function-head"><h4>sendCoin</h4><button class="copy-btn" type="button">Copy</button></div><pre><code>provider.sendCoin("sender-uuid", "player", "receiver-uuid", "player", 100L)
+  .thenAccept(success -&gt; System.out.println(success ? "sendCoin(default): success" : "sendCoin(default): fail"))
+  .exceptionally(ex -&gt; { System.err.println("sendCoin(default): error =&gt; " + ex.getMessage()); return null; });
+provider.sendCoin("sender-uuid", "player", "receiver-uuid", "player", CurrencyType.GOLD, 30L)
+  .thenAccept(success -&gt; System.out.println(success ? "sendCoin(gold): success" : "sendCoin(gold): fail"))
+  .exceptionally(ex -&gt; { System.err.println("sendCoin(gold): error =&gt; " + ex.getMessage()); return null; });</code></pre></div>
+
+  <div class="function-item"><div class="function-head"><h4>ensureAccountExist</h4><button class="copy-btn" type="button">Copy</button></div><pre><code>provider.ensureAccountExist("player-uuid", "player")
+  .thenAccept(success -&gt; System.out.println(success ? "ensureAccountExist: success" : "ensureAccountExist: fail"))
+  .exceptionally(ex -&gt; { System.err.println("ensureAccountExist: error =&gt; " + ex.getMessage()); return null; });</code></pre></div>
+</div>`;
+
+    const selectorEl = document.getElementById("db-selector");
+    const viewEl = document.getElementById("db-view");
+
+    const renderView = (type) => {
+      viewEl.innerHTML = `
+        <section class="card">
+          <span class="db-badge">${type.label}</span>
+          <h3>${type.className}</h3>
+          <p>Adapter class: <code>${type.adapter}</code></p>
+        </section>
+        <section class="card">
+          <h3>Provider Methods (Separated)</h3>
+          ${providerExamples}
+        </section>
+      `;
+
+      document.querySelectorAll(".db-selector button").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.key === type.key);
+      });
+
+      if (window.__hlRun) window.__hlRun();
+
+      viewEl.querySelectorAll(".copy-btn").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const card = btn.closest(".function-item");
+          const codeEl = card ? card.querySelector("code") : null;
+          if (!codeEl) return;
+          const original = btn.textContent;
+          try {
+            await navigator.clipboard.writeText(codeEl.textContent);
+            btn.textContent = "Copied";
+          } catch {
+            btn.textContent = "Failed";
+          }
+          setTimeout(() => {
+            btn.textContent = original;
+          }, 1000);
+        });
+      });
+    };
+
+    dbTypes.forEach((type, index) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.dataset.key = type.key;
+      button.textContent = type.label;
+      button.addEventListener("click", () => renderView(type));
+      selectorEl.appendChild(button);
+      if (index === 0) renderView(type);
+    });
+
+    const loadPartial = async (id, path) => {
+      const host = document.getElementById(id);
+      if (!host) return;
+      const res = await fetch(path);
+      host.innerHTML = await res.text();
+    };
+
+    loadPartial("site-header", "../../partial/header.html");
+    loadPartial("site-footer", "../../partial/footer.html");
+  </script>
+  <script src="../../js/highlight.js"></script>
+</body>
+</html>

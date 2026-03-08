@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plugin Docs</title>
+  <link rel="stylesheet" href="./css/shared/main.css" />
+  <link rel="stylesheet" href="./css/partial/header.css" />
+  <link rel="stylesheet" href="./css/partial/footer.css" />
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <section class="card">
+      <h2>Documentation Entry</h2>
+      <p>Open the MCEconomy Common guide for setup, imports, and database usage examples.</p>
+      <a class="button" href="./common/index.html">Go to Common Docs</a>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script>
+    const loadPartial = async (id, path) => {
+      const host = document.getElementById(id);
+      if (!host) return;
+      const res = await fetch(path);
+      host.innerHTML = await res.text();
+    };
+
+    loadPartial("site-header", "./partial/header.html");
+    loadPartial("site-footer", "./partial/footer.html");
+  </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MCEconomy Common Docs</title>
+  <link rel="stylesheet" href="../css/shared/main.css" />
+  <link rel="stylesheet" href="../css/partial/header.css" />
+  <link rel="stylesheet" href="../css/partial/footer.css" />
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <section class="card">
+      <h2>MCEconomy Common</h2>
+      <p>
+        Shared library for economy operations with async methods through
+        <code>MCEconomyProvider</code>.
+      </p>
+      <div class="nav-row">
+        <a class="button" href="./import/index.html">Import Setup</a>
+        <a class="button alt" href="./db/index.html">Database Guides</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>What this package provides</h3>
+      <ul>
+        <li>Unified async economy API.</li>
+        <li>Support for API, MySQL, PostgreSQL, SQLite, and MongoDB.</li>
+        <li>Ready-to-use examples for coin operations.</li>
+      </ul>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script>
+    const loadPartial = async (id, path) => {
+      const host = document.getElementById(id);
+      if (!host) return;
+      const res = await fetch(path);
+      host.innerHTML = await res.text();
+    };
+
+    loadPartial("site-header", "../partial/header.html");
+    loadPartial("site-footer", "../partial/footer.html");
+  </script>
+</body>
+</html>

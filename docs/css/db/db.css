@@ -1,0 +1,122 @@
+.db-badge {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  background: #173445;
+  color: #8ddcf3;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.7rem;
+}
+
+.function-list {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.function-list li {
+  margin: 0.3rem 0;
+  color: #bdd0dc;
+}
+
+.function-grid {
+  display: grid;
+  gap: 1.5rem;
+  min-width: 0;
+  margin-top: 0.75rem;
+}
+
+.function-item {
+  border: 1px solid #2a3f55;
+  border-left: 4px solid #56c4e2;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(18, 29, 43, 0.96), rgba(12, 20, 30, 0.96));
+  padding: 1.1rem;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.function-item:nth-child(2n) {
+  border-left-color: #ff9f5a;
+}
+
+.function-item:nth-child(3n) {
+  border-left-color: #6be8c8;
+}
+
+.function-item h4 {
+  margin: 0 0 0.45rem;
+  color: #ecf7ff;
+}
+
+.function-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.copy-btn {
+  border: 1px solid #2b4d66;
+  border-radius: 8px;
+  background: #173445;
+  color: #dff4ff;
+  padding: 0.3rem 0.55rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.copy-btn:hover {
+  border-color: #56c4e2;
+}
+
+.function-item pre {
+  margin-top: 0.5rem;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.db-layout {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.db-selector {
+  border: 1px solid #2a3f55;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(18, 29, 43, 0.96), rgba(12, 20, 30, 0.96));
+  padding: 0.8rem;
+}
+
+.db-selector button {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 0.55rem;
+  border: 1px solid #2b4d66;
+  border-radius: 10px;
+  background: #102336;
+  color: #cdeeff;
+  padding: 0.55rem 0.7rem;
+  cursor: pointer;
+}
+
+.db-selector button.active {
+  border-color: #56c4e2;
+  background: #173445;
+  color: #ecf7ff;
+}
+
+.db-view {
+  min-width: 0;
+}
+
+body.db-page main {
+  max-width: 1400px;
+}
+
+@media (max-width: 900px) {
+  .db-layout {
+    grid-template-columns: 1fr;
+  }
+}
