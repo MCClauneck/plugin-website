@@ -154,6 +154,18 @@ dependencies {
   compileOnly("io.github.mcclauneck:mceconomy-papermc:2026.0.4-3")
 }</code></pre>
     </section>
+
+    <section class="card card--highlight">
+      <h3>Relocated Dependencies</h3>
+      <p class="highlight-text">
+        The PaperMC plugin shades a subset of its dependencies via <code>shadowJar</code>
+        to prevent classpath conflicts. The relocations defined in <code>build.gradle</code>
+        move any references from <code class="relocated-term">io.github.mcengine</code> and
+        <code class="relocated-term">com.zaxxer</code>
+        under the <code class="relocated-term">io.github.mcclauneck</code> namespace before
+        publishing the final jar.
+      </p>
+    </section>
   </main>
 
   <div id="site-footer"></div>
